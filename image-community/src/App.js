@@ -10,7 +10,7 @@ import theme from './shared/style';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Write from './pages/Write;';
+import Write from './pages/Write';
 
 // components
 import Header from './components/Header';
