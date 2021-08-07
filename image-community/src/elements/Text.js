@@ -15,7 +15,7 @@ Text.defaultProps = {
 
 const TextStyle = styled.p`
   font-size: ${(props) => props.fontSize};
-  color: ${(props) => `rgb(${props.theme.palette[props.color]})`};
+  color: ${(props) => `rgb(${props.theme.palatte[props.color]})`};
   line-height: ${(props) => props.lineHeight};
   text-indent: ${(props) => props.textIndent};
   font-weight: ${(props) => props.fontWeight};

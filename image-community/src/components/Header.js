@@ -11,7 +11,11 @@ import { Grid, Button, Text } from '../elements/index';
 const Header = (props) => {
   return (
     <HeaderStyle>
-      <Grid></Grid>
+      <Grid>
+        <Text>Image</Text>
+        <Button>로그인</Button>
+        <Button>회원가입</Button>
+      </Grid>
     </HeaderStyle>
   );
 };
