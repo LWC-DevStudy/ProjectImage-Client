@@ -16,7 +16,7 @@ const Image = ({ src, size, ...props }) => {
 
 Image.defaultProps = {
   src: 'https://cdn.pixabay.com/photo/2021/08/02/20/35/architecture-6517841_960_720.jpg',
-  size: 200,
+  size: 36,
   addstyle: () => {},
 };
 
