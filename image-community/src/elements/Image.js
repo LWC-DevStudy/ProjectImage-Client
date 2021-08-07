@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 // style
-import styled from 'styled-components';
 
 const Image = (props) => {
   const { src, size } = props;
