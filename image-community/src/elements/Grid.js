@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // style
 import { borderBox } from '../shared/style';
 
-const Grid = (props) => {
+const Grid = ({ children, ...props }) => {
   return (
     <React.Fragment>
       <GridStyle {...props}>{children}</GridStyle>
