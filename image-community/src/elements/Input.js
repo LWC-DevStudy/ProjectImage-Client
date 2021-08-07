@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { borderBox } from '../shared/style';
 
 import Text from './Text';
-import Grid from './Grid';
 
 const Input = (props) => {
   const { label, placeholder, _onChange, type, multiline, value, margin, width } = props;
@@ -14,7 +13,6 @@ const Input = (props) => {
   if (multiline) {
     return (
       <>
-        <Grid>
           {label && <Text margin="0px">{label}</Text>}
           <ElTextarea
             value={value}
@@ -22,14 +20,12 @@ const Input = (props) => {
             placeholder={placeholder}
             onChange={_onChange}
             ></ElTextarea>
-        </Grid>
       </> 
     );
   }
 
   return (
     <>
-      <Grid>
         {label && <Text margin="0px">{label}</Text>}
         <ElInput 
           width={width} 
@@ -37,7 +33,6 @@ const Input = (props) => {
           type={type} 
           placeholder={placeholder} 
           onChange={_onChange}/>
-      </Grid>
     </>
   )
 };
