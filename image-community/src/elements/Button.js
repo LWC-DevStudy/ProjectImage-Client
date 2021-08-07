@@ -23,8 +23,8 @@ Button.defaultProps = {
 
 const ButtonStyle = styled.button`
   width: ${(props) => props.width};
-  background: ${(props) => `rgb(${props.theme.palette[props.bgColor]})`};
-  color: ${(props) => `rgb(${props.theme.palette[props.color]})`};
+  background: ${(props) => `rgb(${props.theme.palatte[props.bgColor]})`};
+  color: ${(props) => `rgb(${props.theme.palatte[props.color]})`};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   margin: ${(props) => props.margin};
