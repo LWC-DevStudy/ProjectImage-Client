@@ -13,7 +13,7 @@ const ImageCard = (props) => {
       bgColor="white"
       width="100%"
       color="navy"
-      margin="200px 0px"
+      margin="auto"
       padding="16px"
       border="1px solid black"
       addstyle={() => {
