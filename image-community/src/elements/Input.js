@@ -14,32 +14,30 @@ const Input = (props) => {
   if (multiline) {
     return (
       <>
-        {/* <Grid> */}
-          {/* {label && <Text margin="0px">{label}</Text>} */}
-          <>{label}</>
+        <Grid>
+          {label && <Text margin="0px">{label}</Text>}
           <ElTextarea
             value={value}
             rows={10}
             placeholder={placeholder}
             onChange={_onChange}
             ></ElTextarea>
-        {/* </Grid> */}
+        </Grid>
       </> 
     );
   }
 
   return (
     <>
-      {/* <Grid> */}
-        {/* {label && <Text margin="0px">{label}</Text>} */}
-        <>{label}</>
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
         <ElInput 
           width={width} 
           margin={margin} 
           type={type} 
           placeholder={placeholder} 
           onChange={_onChange}/>
-      {/* </Grid> */}
+      </Grid>
     </>
   )
 };

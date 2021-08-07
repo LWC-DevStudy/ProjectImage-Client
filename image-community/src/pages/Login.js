@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from '../elements/Input';
+import Button from '../elements/Button';
 
 const Login = (props) => {
   return (
   <>
   <LoginPage>
     <LoginBox>
-    <Input width="200px" margin="10px" label="아이디" placeholder="아이디를 입력해주세요."/>
-    <Input width="200px" margin="10px" label="비밀번호" placeholder="비밀번호를 입력해주세요."/>
+    <Input width="300px" margin="10px 0" label="아이디" placeholder="아이디를 입력해주세요."/>
+    <Input width="300px" margin="10px 0" label="비밀번호" placeholder="비밀번호를 입력해주세요."/>
+    <Button style={{height:'50px'}} margin="10px 100px" width="100px">로그인</Button>
     </LoginBox>
   </LoginPage>
   </>
