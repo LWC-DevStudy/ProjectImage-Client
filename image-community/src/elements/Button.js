@@ -17,6 +17,7 @@ Button.defaultProps = {
   color: 'white',
   bgColor: 'purple',
   fontSize: '16px',
+  padding: '12px',
   addstyle: () => {},
   clickEvent: () => {},
 };
