@@ -1,6 +1,14 @@
 // style
 import { css } from 'styled-components';
 
+export const borderBox = (radius = '3px', padding = 0) => {
+  return css`
+    box-sizing: border-box;
+    padding: ${padding};
+    border-radius: ${radius};
+  `;
+};
+
 const theme = {
   palatte: {
     navy: '24, 44, 97',
