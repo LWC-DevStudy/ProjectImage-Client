@@ -63,20 +63,6 @@ const Header = (props) => {
           </Text>
         </Grid>
 
-        {/* <Grid>
-          <Text fontWeight="600" margin="0 0 1% 0" textAlign="center">
-            Front-end 👉 정진우 우종혁 이선민{' '}
-          </Text>
-          <Text
-            fontWeight="600"
-            margin="0"
-            textAlign="center"
-            alginItems="center"
-          >
-            Back-end 👉 채병훈 김인섭
-          </Text>
-        </Grid> */}
-
         <Grid
           margin="0"
           addstyle={() => {
@@ -85,8 +71,10 @@ const Header = (props) => {
             `;
           }}
         >
-          <Button margin="0 2% 0 0">로그인</Button>
-          <Button>회원가입</Button>
+          <Button margin="0 2% 0 0">
+            {path === '/' ? '로그인' : '작성하기'}
+          </Button>
+          <Button>{path === '/' ? '회원가입' : '로그아웃'}</Button>
         </Grid>
       </Grid>
     </HeaderStyle>
