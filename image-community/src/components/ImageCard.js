@@ -1,18 +1,50 @@
 // LIBRARY
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { flexBox, flexHoz } from '../shared/style';
 //ELEMENTS
 import Image from '../elements/Image';
 import Grid from '../elements/Grid';
+import Text from '../elements/Text';
+import Button from '../elements/Button';
 const ImageCard = (props) => {
   return (
-    <Grid bgColor="white" color="navy" margin="200px 0px" padding="16px">
-      <Grid width="auto" margin="0px 8px 0px 0px">
+    <Grid
+      bgColor="white"
+      width="100%"
+      color="navy"
+      margin="200px 0px"
+      padding="16px"
+      border="1px solid black"
+      addstyle={() => {
+        return css`
+          ${flexBox('column', 'column')}
+        `;
+      }}
+    >
+      <Grid width="1200px" margin="0px 8px 0px 0px">
+        <Grid
+          width="100%"
+          addstyle={() => {
+            return css`
+              ${flexHoz('flex-end')}
+            `;
+          }}
+        >
+          <Text color="black" fontWeight="bold">
+            정진우님
+          </Text>
+          <Button padding="12px">수정</Button>
+          <Button padding="12px">삭제</Button>
+        </Grid>
         <Image
           src={
             'https://cdn.pixabay.com/photo/2021/08/02/20/35/architecture-6517841_960_720.jpg'
           }
         />
+        <Text color="black" fontWeight="bold" fontSize="30px" margin="60px 0">
+          건물사진
+        </Text>
       </Grid>
     </Grid>
   );
