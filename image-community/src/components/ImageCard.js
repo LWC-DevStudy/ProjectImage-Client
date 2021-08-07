@@ -13,7 +13,7 @@ const ImageCard = (props) => {
       bgColor="white"
       width="100%"
       color="navy"
-      margin="200px 0px"
+      margin="auto"
       padding="16px"
       border="1px solid black"
       addstyle={() => {
@@ -25,6 +25,7 @@ const ImageCard = (props) => {
       <Grid width="1200px" margin="0px 8px 0px 0px">
         <Grid
           width="100%"
+          margin="0 0 8px 0"
           addstyle={() => {
             return css`
               ${flexHoz('flex-end')}
@@ -34,8 +35,28 @@ const ImageCard = (props) => {
           <Text color="black" fontWeight="bold">
             정진우님
           </Text>
-          <Button padding="12px">수정</Button>
-          <Button padding="12px">삭제</Button>
+          <Button
+            margin="1% 2px 0 2px"
+            addstyle={() => {
+              return css`
+                height: 30px;
+                line-height: 1px;
+              `;
+            }}
+          >
+            수정
+          </Button>
+          <Button
+            margin="1% 0 0 0"
+            addstyle={() => {
+              return css`
+                height: 30px;
+                line-height: 1px;
+              `;
+            }}
+          >
+            삭제
+          </Button>
         </Grid>
         <Image
           src={
