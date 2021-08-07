@@ -4,17 +4,11 @@ import styled from 'styled-components';
 
 // style
 
-const Image = (props) => {
-  const { src, size } = props;
-  const styles = {
-    src: src,
-    size: size,
-  };
-
+const Image = ({ src, size, ...props }) => {
   return (
     <React.Fragment>
       <AspectOutter>
-        <AspectInner addstyle={addstyle} {...styles}></AspectInner>
+        <AspectInner {...props} src={src} size={size}></AspectInner>
       </AspectOutter>
     </React.Fragment>
   );
@@ -22,7 +16,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
   src: 'https://cdn.pixabay.com/photo/2021/08/02/20/35/architecture-6517841_960_720.jpg',
-  size: 36,
+  size: 200,
   addstyle: () => {},
 };
 
