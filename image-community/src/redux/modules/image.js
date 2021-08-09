@@ -45,7 +45,7 @@ const uploadImageDB = (callNext) => {
         },
       });
 
-      const promise = uploag.promise();
+      const promise = upload.promise();
 
       await promise
         .then((data) => {
@@ -58,4 +58,33 @@ const uploadImageDB = (callNext) => {
     }
     callNext();
   };
+};
+
+// reducer
+function image(state = initialState, action) {
+  switch (action.type) {
+    case UPLOAD_IMAGE:
+      return { ...state, imageUrl: [...state.imageUrl, action.imgUrl] };
+    case SET_FILE:
+      return { ...state, file: [...state.file, ...action.file] };
+    case DEL_FILE:
+      const fileList = state.file.filter((img, idx) => action.index !== idx);
+
+      return { ...state, file: fileList };
+    case SET_INITIAL_STATE:
+      return { imageUrl: [], file: [] };
+
+    default:
+      return state;
+  }
+}
+
+export default image;
+
+export const imgActions = {
+  uploadImage,
+  setFile,
+  delFile,
+  setInitialState,
+  uploadImageDB,
 };
