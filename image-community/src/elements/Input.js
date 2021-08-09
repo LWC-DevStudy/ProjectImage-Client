@@ -8,7 +8,7 @@ import { borderBox } from '../shared/style';
 import Text from './Text';
 
 const Input = (props) => {
-  const { label, placeholder, _onChange, type, multiline, value, margin, width } = props;
+  const { label, placeholder, _onChange, type, multiline, value, margin, width, id, name } = props;
   
   if (multiline) {
     return (
@@ -27,7 +27,9 @@ const Input = (props) => {
   return (
     <>
         {label && <Text margin="0px">{label}</Text>}
-        <ElInput 
+        <ElInput
+          id={id}
+          name={name} 
           width={width} 
           margin={margin} 
           type={type} 

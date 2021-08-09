@@ -47,42 +47,53 @@ const Signup = (props) => {
     <SignupBox>
     <Grid>
     <form name="signUpForm" onSubmit={formik.handleSubmit}>    
-    <Input 
+    <Input
+      id="username"
+      name="username"
+      type="username" 
       width="320px" 
       margin="10px 0" 
       label="아이디" 
       placeholder="아이디를 입력해주세요."
       value={formik.values.username}
-      onChange={formik.handleChange} 
+      _onChange={formik.handleChange} 
     />
     {formik.errors.username && formik.touched.username && (
             <p>{formik.errors.username}</p>
     )}
-    <Input 
+    <Input
+      id="password"
+      name="password"
       type="password" 
       width="320px" 
       margin="10px 0" 
       label="비밀번호" 
       placeholder="비밀번호를 입력해주세요."
       value={formik.values.password}
-      onChange={formik.handleChange} 
+      _onChange={formik.handleChange} 
     />
     {formik.errors.password && formik.touched.password && (
             <p>{formik.errors.password}</p>
     )}
-    <Input 
+    <Input
+      id="passwordCheck"
+      name="passwordCheck" 
       type="password" 
       width="320px" 
       margin="10px 0" 
       label="비밀번호 확인" 
       placeholder="비밀번호를 한 번 더 입력해주세요."
       value={formik.values.passwordCheck}
-      onChange={formik.handleChange} 
+      _onChange={formik.handleChange} 
     />
     {formik.errors.passwordCheck && formik.touched.passwordCheck && (
             <p>{formik.errors.passwordCheck}</p>
     )}
-    <Button margin="10px 120px">가입하기</Button>
+    <Button 
+      margin="10px 120px"
+      type="submit"
+      value="회원가입"
+      >가입하기</Button>
     </form>
     </Grid>    
     </SignupBox>
