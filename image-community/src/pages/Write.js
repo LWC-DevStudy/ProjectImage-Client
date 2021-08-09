@@ -1,11 +1,23 @@
 // library
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 // elements
 import { Grid, Button } from '../elements';
 
-const Write = (props) => {
+// redux
+import { imgActions } from '../redux/modules/image';
+import post from '../redux/modules/post';
+
+const Write = () => {
+  const dispatch = useDispatch();
+
+  const upadteImage = () => {
+    dispatch(imgActions.setFile(post.img));
+  };
+  // console.log();
+
   return (
     <Grid bgColor="navy" width="100%" height="100vh">
       <Grid margin="0 auto" height="auto">
@@ -23,11 +35,13 @@ const Write = (props) => {
           }}
         />
 
-        <Textarea />
+        <Textarea _onChange={onchange} />
       </Grid>
 
       <Grid width="90px" margin="0 auto">
-        <Button width="90px">작성하기</Button>
+        <Button width="90px" clickEvent={upadteImage}>
+          작성하기
+        </Button>
       </Grid>
     </Grid>
   );

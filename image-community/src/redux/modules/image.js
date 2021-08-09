@@ -1,3 +1,4 @@
+import { createActions, handleActions } from 'redux-actions';
 import AWS from 'aws-sdk';
 
 AWS.config.update({
@@ -42,6 +43,8 @@ const uploadImageDB = (callNext) => {
       const upload = new AWS.S3.ManagedUpload({
         params: {
           Bucket: 'project-image-react',
+          key: img.name,
+          Body: img,
         },
       });
 
