@@ -66,7 +66,7 @@ const Header = (props) => {
         </Grid>
 
         <Grid
-          width="12%"
+          width="165px"
           addstyle={() => {
             return css`
               ${flexBox('space-between')}
