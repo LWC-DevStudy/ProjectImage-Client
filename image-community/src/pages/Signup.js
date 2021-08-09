@@ -45,7 +45,8 @@ const Signup = (props) => {
   <>
   <SignupPage>
     <SignupBox>
-    <Grid>    
+    <Grid>
+    <form name="signUpForm" onSubmit={formik.handleSubmit}>    
     <Input 
       width="320px" 
       margin="10px 0" 
@@ -82,6 +83,7 @@ const Signup = (props) => {
             <p>{formik.errors.passwordCheck}</p>
     )}
     <Button margin="10px 120px">가입하기</Button>
+    </form>
     </Grid>    
     </SignupBox>
   </SignupPage>
