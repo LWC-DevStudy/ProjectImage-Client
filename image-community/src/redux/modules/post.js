@@ -1,7 +1,7 @@
 //import
 import { createSlice } from '@reduxjs/toolkit';
 import instance from '../../shared/axios';
-import { getToken, setToken } from '../../shared/cookie';
+import { getToken, setToken } from '../../shared/token';
 
 export const addPostDB = (imageUrl, contents) => {
   return function (dispatch, getState, { history }) {
@@ -60,3 +60,6 @@ const post = createSlice({
     },
   },
 });
+
+export const { addPost, getPost } = post.actions;
+export default post;
