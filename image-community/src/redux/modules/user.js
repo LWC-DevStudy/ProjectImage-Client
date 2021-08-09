@@ -10,8 +10,9 @@ export const SignUpDB = ({ username, password, passwordCheck }) => {
         instance
         .post('/register', {username, password, passwordCheck })
         .then((res) => {
+            console.log(res);
             window.alert('회원가입 성공!');
-            history.replace('/');
+            history.push('/login');
         })
         .catch((err) => {
             window.alert('회원가입 실패!');
