@@ -1,12 +1,14 @@
 import instance from '../../shared/axios';
 import { createSlice } from '@reduxjs/toolkit';
 
+
 // functions
 import { setToken, removeToken } from '../../shared/token';
 
 // 회원가입
 export const SignUpDB = ({ username, password, passwordCheck }) => {
-    return function ({ history }) {
+
+    return function (dispatch, getState, { history }) {
         instance
         .post('/register', {username, password, passwordCheck })
         .then((res) => {
@@ -23,15 +25,15 @@ export const SignUpDB = ({ username, password, passwordCheck }) => {
 
 // 로그인 
 export const LogInDB = ({ username, password }) => {
-    return function (dispatch, { history }) {
+    return function (dispatch, getState, { history }) {
         instance
         .post('/login', {username, password})
         .then((res) => {
             dispatch(SetUser(res.data));
             setToken(res.data);
             window.alert('로그인 성공');
-            history.push('/');
-            window.location.reload();
+            history.replace('/');
+            // window.location.reload();
         })
         .catch((err) => {
             window.alert('아이디, 비밀번호를 확인해주세요.');
