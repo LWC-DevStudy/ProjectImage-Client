@@ -7,7 +7,7 @@ import { getToken } from './token';
 axios.defaults.withCredentials = true;
 
 const instance = axios.create({
-  baseURL: '',
+  baseURL: 'http://52.78.241.50/',
 });
 
 instance.interceptors.request.use((config) => {
