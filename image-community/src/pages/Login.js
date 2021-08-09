@@ -35,7 +35,8 @@ const Login = (props) => {
   <>
   <LoginPage>
     <LoginBox>
-    <Grid>    
+    <Grid>
+    <form name="loginForm" onSubmit={formik.handleSubmit}>    
     <Input 
       width="320px" 
       margin="10px 0" 
@@ -62,6 +63,7 @@ const Login = (props) => {
     />
     
     <Button type="submit" margin="10px 120px">로그인</Button>
+    </form>
     </Grid>
     </LoginBox>
   </LoginPage>
