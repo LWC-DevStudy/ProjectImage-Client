@@ -3,8 +3,9 @@ import React from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { history } from '../redux/configStore';
+import { LogInDB } from '../redux/modules/user';
 
 // style
 import { borderBox, flexBox, flexHoz } from '../shared/style';
@@ -13,28 +14,21 @@ import { borderBox, flexBox, flexHoz } from '../shared/style';
 import { Grid, Button, Input } from '../elements/index';
 
 const Login = (props) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      full_name: "",
-      email: "",
-      password: "",
-      confirm_password: ""
+      username: '',
+      password: '',
     },
+
     validationSchema: Yup.object({
-      full_name: Yup.string()
-        .min(2, "Mininum 2 characters")
-        .max(15, "Maximum 15 characters")
-        .required("Required!"),
-      email: Yup.string()
-        .email("Invalid email format")
-        .required("Required!"),
-      password: Yup.string()
-        .min(8, "Minimum 8 characters")
-        .required("Required!"),
-      confirm_password: Yup.string()
-        .oneOf([Yup.ref("password")], "Password's not match")
-        .required("Required!")
-    })
+      username: Yup.string().required('아이디를 입력해주세요!!'),
+      password: Yup.string().required('패스워드를 입력해주세요!'),
+    }),
+
+    onSubmit: (values) => {
+      dispatch(LogInDB(values));
+    },
   });
 
   return (
@@ -46,27 +40,27 @@ const Login = (props) => {
       width="320px" 
       margin="10px 0" 
       label="아이디" 
-      name="id" 
       placeholder="아이디를 입력해주세요."
-      value={formik.values.id}
-      onChange={formik.handleChange} 
+      _onChange={formik.handleChange}
+      value={formik.values.username}
+      id="username"
+      name="username"
+      type="username"
     />
-    {formik.errors.id && formik.touched.id && (
-            <p>{formik.errors.id}</p>
-          )}
+    
     <Input
       type="password" 
       width="320px" 
       margin="10px 0" 
       label="비밀번호" 
-      name="pw"
+      name="password"
       placeholder="비밀번호를 입력해주세요."
-      value={formik.values.pw}
-      onChange={formik.handleChange} 
+      _onChange={formik.handleChange}
+      value={formik.values.password}
+      id="password"
+      
     />
-    {formik.errors.pw && formik.touched.pw && (
-            <p>{formik.errors.pw}</p>
-          )}
+    
     <Button type="submit" margin="10px 120px">로그인</Button>
     </Grid>
     </LoginBox>
