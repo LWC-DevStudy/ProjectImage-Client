@@ -3,12 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import instance from '../../shared/axios';
 import { getToken, setToken } from '../../shared/token';
 
-// redux
+//REDUX
 import { imgActions } from './image';
 
-export const addPostDB = (imageUrl, contents, image) => {
+export const addPostDB = (post) => {
   return function (dispatch, getState, { history }) {
-    const imgFile = getState().image.file;
+    const imgFile = getState().image.imageUrl;
 
     if (imgFile.length) {
       dispatch(
@@ -27,41 +27,18 @@ export const addPostDB = (imageUrl, contents, image) => {
               const newPost = {
                 ...postInfo,
                 ...userInfo,
-                postId: res.data,
+                postId: res.data.postId,
               };
-
               dispatch(addPost(newPost));
               dispatch(imgActions.setInitialState());
             })
             .catch((err) => {
-              console.error(err);
-            })
-            .catch((err) => {
-              console.error(err);
+              console.log(err);
             });
         })
       );
-
-      return;
     }
-
-    const postInfo = {
-      ...post,
-      img: [],
-    };
-
-    instance.post('/post/create', { ...postInfo }).then((res) => {
-      const userInfo = getState().user;
-
-      const newPost = {
-        ...postInfo,
-        ...userInfo,
-        postId: res.data.postId,
-      };
-
-      dispatch(addPost({ ...newPost, postId: res.data.postId }));
-      dispatch(imgActions.setInitialState());
-    });
+    return;
   };
 };
 
@@ -93,9 +70,8 @@ const post = createSlice({
   initialState,
   reducers: {
     addPost: (state, action) => {
-      const imageUrl = action.payload.imageUrl;
-      const contents = action.payload.contents;
-      state.list.push({ imageUrl, contents });
+      const newPostList = [action.post, ...state.list];
+      return { ...state, list: newPostList };
     },
 
     getPost: (state, action) => {

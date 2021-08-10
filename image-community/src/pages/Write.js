@@ -3,20 +3,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+// redux
+import post, { addPostDB } from '../redux/modules/post';
+import image from '../redux/modules/image';
 // elements
 import { Grid, Button } from '../elements';
 
-// redux
-import { imgActions } from '../redux/modules/image';
-import post from '../redux/modules/post';
-
-const Write = () => {
+const Write = (props) => {
   const dispatch = useDispatch();
 
-  const upadteImage = () => {
-    dispatch(imgActions.setFile(post.img));
+  //input 값
+  const [contents, setContent] = React.useState();
+
+  const $contents = (e) => {
+    setContent(e.target.value);
   };
-  // console.log();
+
+  // 작성 btn
+  const writeBtn = () => {
+    dispatch(addPostDB(contents));
+  };
 
   return (
     <Grid bgColor="navy" width="100%" height="100vh">
@@ -35,11 +41,11 @@ const Write = () => {
           }}
         />
 
-        <Textarea _onChange={onchange} />
+        <Textarea onChange={$contents} />
       </Grid>
 
       <Grid width="90px" margin="0 auto">
-        <Button width="90px" clickEvent={upadteImage}>
+        <Button width="90px" _onClick={writeBtn}>
           작성하기
         </Button>
       </Grid>
