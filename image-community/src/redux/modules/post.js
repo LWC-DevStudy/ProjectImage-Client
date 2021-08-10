@@ -6,7 +6,7 @@ import { getToken, setToken } from '../../shared/token';
 //REDUX
 import { imgActions } from './image';
 
-export const addPostDB = ({ contents, imageUrl }) => {
+export const addPostDB = (post, imageUrl) => {
   return function (dispatch, getState, { history }) {
     const imgFile = getState().image.file;
     const token = getToken('token');
@@ -17,10 +17,10 @@ export const addPostDB = ({ contents, imageUrl }) => {
           const imageUrl = getState().image.imageUrl;
           const contents = getState().post.contents;
           const postInfo = {
-            contents: contents,
+            contents: post,
             imageUrl: imageUrl,
           };
-          console.log(getState().post);
+          console.log(postInfo);
 
           // { imageUrl : "이미지 주소",
           //   contents : "내용",
@@ -36,7 +36,8 @@ export const addPostDB = ({ contents, imageUrl }) => {
                 userId: res.data.userId,
                 postId: res.data.postId,
               };
-              dispatch(addPost(newPost));
+              console.log(newPost);
+              dispatch(addPost(postInfo));
               dispatch(imgActions.setInitialState());
               console.log(newPost);
             })
