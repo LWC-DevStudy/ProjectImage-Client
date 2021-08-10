@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // redux
-import post, { addPostDB } from '../redux/modules/post';
+import post, { addPostDB, addPost } from '../redux/modules/post';
 import image from '../redux/modules/image';
 // elements
 import { Grid, Button } from '../elements';
@@ -45,7 +45,7 @@ const Write = (props) => {
       </Grid>
 
       <Grid width="90px" margin="0 auto">
-        <Button width="90px" _onClick={writeBtn}>
+        <Button width="90px" clickEvent={writeBtn}>
           작성하기
         </Button>
       </Grid>
