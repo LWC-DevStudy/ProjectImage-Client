@@ -28,7 +28,7 @@ export const LogInDB = ({ username, password }) => {
       .post('/login', { username, password })
       .then((res) => {
         dispatch(SetUser(res.data));
-        setToken(res.data);
+        setToken(res.data.token);
         window.alert('로그인 성공');
         history.replace('/');
         // window.location.reload();

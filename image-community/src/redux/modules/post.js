@@ -6,18 +6,21 @@ import { getToken, setToken } from '../../shared/token';
 //REDUX
 import { imgActions } from './image';
 
-export const addPostDB = (post) => {
+export const addPostDB = ({ contents, imgUrl }) => {
   return function (dispatch, getState, { history }) {
     const imgFile = getState().image.file;
-
+    const token = getToken('token');
+    instance.defaults.headers.common['Authorization'] = `${token}`;
     if (imgFile.length) {
       dispatch(
         imgActions.uploadImageDB(() => {
-          const imgUrl = getState().image.imageUrl;
+          const imageUrl = getState().image.imgUrl;
+          const contents = getState().post.contents;
           const postInfo = {
-            ...post,
-            img: imgUrl,
+            contents: contents,
+            imageUrl: imgUrl,
           };
+          console.log(getState().post);
 
           // { imageUrl : "이미지 주소",
           //   contents : "내용",
@@ -30,11 +33,12 @@ export const addPostDB = (post) => {
 
               const newPost = {
                 ...postInfo,
-                ...userInfo,
+                userId: res.data.userId,
                 postId: res.data.postId,
               };
               dispatch(addPost(newPost));
               dispatch(imgActions.setInitialState());
+              console.log(newPost);
             })
             .catch((err) => {
               console.log(err);
@@ -42,7 +46,7 @@ export const addPostDB = (post) => {
         })
       );
     }
-    return console.log('실패');
+    return;
   };
 };
 
@@ -65,7 +69,7 @@ export const getPostDB = () => {
 // Delete와 Edit 추가 예정
 
 const initialState = {
-  list: [],
+  list: ['aaaaaaaaaaaaaaa'],
 };
 
 // 리덕스
@@ -74,11 +78,12 @@ const post = createSlice({
   initialState,
   reducers: {
     addPost: (state, action) => {
-      const newPostList = [action.post, ...state.list];
-      return { ...state, list: newPostList };
-      // const imgFile = action.payload.file;
-      // const content = action.payload.content;
-      // return state.list.push({ imgFile, content });
+      // const newPostList = [action.post, ...state.list];
+      // return { ...state, list: newPostList };
+      const imgFile = action.payload.imgUrl;
+      const contents = action.payload.contents;
+      console.log(imgFile, contents);
+      return state.list.push({ imgFile, contents });
     },
 
     getPost: (state, action) => {

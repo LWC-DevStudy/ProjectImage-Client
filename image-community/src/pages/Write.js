@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // redux
+
+
 import post, { addPostDB } from '../redux/modules/post';
 import image, { imgActions } from '../redux/modules/image';
+
 // elements
 import { Grid, Button } from '../elements';
 
@@ -21,8 +24,7 @@ const Write = (props) => {
 
   // 작성 btn
   const writeBtn = () => {
-    console.log('버튼 테스트');
-    dispatch(addPostDB());
+    dispatch(addPostDB(contents));
   };
 
   // s3
