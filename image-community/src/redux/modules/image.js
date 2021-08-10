@@ -15,14 +15,14 @@ const DEL_FILE = 'DEL_FILE';
 const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
 
 // action creator
-const uploadImage = (imgUrl) => ({ type: UPLOAD_IMAGE, imgUrl });
+const uploadImage = (imageUrl) => ({ type: UPLOAD_IMAGE, imageUrl });
 const setFile = (file) => ({ type: SET_FILE, file });
 const delFile = (postId) => ({ type: DEL_FILE, postId });
 const setInitialState = () => ({ type: SET_INITIAL_STATE });
 
 // initial state
 const initialState = {
-  imgUrl: [],
+  imageUrl: [],
   file: [],
 };
 
@@ -32,18 +32,18 @@ const uploadImageDB = (callNext) => {
     const imgList = getState().image.file;
 
     for (let i = 0; i < imgList.length; i++) {
-      const imgUrl = imgList[i];
+      const img = imgList[i];
 
       if (typeof img !== 'object') {
-        dispatch(uploadImage(imgUrl));
+        dispatch(uploadImage(img));
         continue;
       }
 
       const upload = new AWS.S3.ManagedUpload({
         params: {
           Bucket: 's3-image-project',
-          Key: imgUrl.name,
-          Body: imgUrl,
+          Key: img.name,
+          Body: img,
         },
       });
 
@@ -66,7 +66,7 @@ const uploadImageDB = (callNext) => {
 function image(state = initialState, action) {
   switch (action.type) {
     case UPLOAD_IMAGE:
-      return { ...state, imgUrl: [...state.imgUrl, action.imgUrl] };
+      return { ...state, imageUrl: [...state.imageUrl, action.imageUrl] };
     case SET_FILE:
       return { ...state, file: [...state.file, ...action.file] };
     case DEL_FILE:
@@ -74,7 +74,7 @@ function image(state = initialState, action) {
 
       return { ...state, file: fileList };
     case SET_INITIAL_STATE:
-      return { imgUrl: [], file: [] };
+      return { imageUrl: [], file: [] };
 
     default:
       return state;
