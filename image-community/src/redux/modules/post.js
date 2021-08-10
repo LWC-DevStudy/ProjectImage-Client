@@ -8,7 +8,7 @@ import { imgActions } from './image';
 
 export const addPostDB = (post) => {
   return function (dispatch, getState, { history }) {
-    const imgFile = getState().image.imageUrl;
+    const imgFile = getState().image.file;
 
     if (imgFile.length) {
       dispatch(
@@ -18,6 +18,10 @@ export const addPostDB = (post) => {
             ...post,
             img: imgUrl,
           };
+
+          // { imageUrl : "이미지 주소",
+          //   contents : "내용",
+          // },
 
           instance
             .post('/post/create', { ...postInfo })
@@ -38,7 +42,7 @@ export const addPostDB = (post) => {
         })
       );
     }
-    return;
+    return console.log('실패');
   };
 };
 
@@ -72,6 +76,9 @@ const post = createSlice({
     addPost: (state, action) => {
       const newPostList = [action.post, ...state.list];
       return { ...state, list: newPostList };
+      // const imgFile = action.payload.file;
+      // const content = action.payload.content;
+      // return state.list.push({ imgFile, content });
     },
 
     getPost: (state, action) => {
