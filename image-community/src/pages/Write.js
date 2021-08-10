@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // redux
-import post, { addPostDB, addPost } from '../redux/modules/post';
-import image from '../redux/modules/image';
+
+
+import post, { addPostDB } from '../redux/modules/post';
+import image, { imgActions } from '../redux/modules/image';
+
 // elements
 import { Grid, Button } from '../elements';
 
@@ -21,13 +24,22 @@ const Write = (props) => {
 
   // 작성 btn
   const writeBtn = () => {
-    dispatch(addPostDB(contents));
+    console.log('버튼 테스트');
+    dispatch(addPostDB());
+  };
+
+  // s3
+  const handleInputFile = (event) => {
+    const file = event.target.files[0];
+    dispatch(imgActions.setInitialState());
+    dispatch(imgActions.setFile([file]));
   };
 
   return (
     <Grid bgColor="navy" width="100%" height="100vh">
       <Grid margin="0 auto" height="auto">
         <input
+          onChange={handleInputFile}
           id="input--file"
           type="file"
           accept="image/png, image/jpeg"
