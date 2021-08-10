@@ -1,10 +1,10 @@
+import { createActions, handleActions } from 'redux-actions';
 import AWS from 'aws-sdk';
 
 AWS.config.update({
   region: 'ap-northeast-2',
   credentials: new AWS.CognitoIdentityCredentials({
-    IdentityPoolId:
-      'ap-northeast-2:ap-northeast-2:f820ff76-6502-48e5-aba7-5954ee012ba3',
+    IdentityPoolId: 'ap-northeast-2:886420cf-ca69-41d3-9f16-09beaf2cb566',
   }),
 });
 
@@ -41,7 +41,9 @@ const uploadImageDB = (callNext) => {
 
       const upload = new AWS.S3.ManagedUpload({
         params: {
-          Bucket: 'project-image-react',
+          Bucket: 's3-image-project',
+          key: img.name,
+          Body: img,
         },
       });
 
