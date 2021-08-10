@@ -21,8 +21,7 @@ const Write = (props) => {
 
   // 작성 btn
   const writeBtn = () => {
-    console.log('버튼 테스트');
-    dispatch(addPostDB());
+    dispatch(addPostDB(contents));
   };
 
   // s3
