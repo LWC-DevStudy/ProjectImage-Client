@@ -3,22 +3,42 @@ import { createSlice } from '@reduxjs/toolkit';
 import instance from '../../shared/axios';
 import { getToken, setToken } from '../../shared/token';
 
-export const addPostDB = (imageUrl, contents) => {
+//REDUX
+import { imgActions } from './image';
+
+export const addPostDB = (post) => {
   return function (dispatch, getState, { history }) {
-    const token = getToken('token');
-    instance.defaults.header.common['Authorization'] = `${token}`;
-    instance
-      .post('/post/create', { imageUrl: imageUrl, contents: contents })
-      .then((res) => {
-        console.log(res);
-        dispatch(addPost({ imageUrl: imageUrl, contents: contents }));
-        window.alert('포스팅 완료👍');
-        history.push('/');
-      })
-      .catch((err) => {
-        window.alert('포스팅에 오류가 있어요!');
-        console.log(err);
-      });
+    const imgFile = getState().image.imageUrl;
+
+    if (imgFile.length) {
+      dispatch(
+        imgActions.uploadImageDB(() => {
+          const imgUrl = getState().image.imageUrl;
+          const postInfo = {
+            ...post,
+            img: imgUrl,
+          };
+
+          instance
+            .post('/post/create', { ...postInfo })
+            .then((res) => {
+              const userInfo = getState().user;
+
+              const newPost = {
+                ...postInfo,
+                ...userInfo,
+                postId: res.data.postId,
+              };
+              dispatch(addPost(newPost));
+              dispatch(imgActions.setInitialState());
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+      );
+    }
+    return;
   };
 };
 
@@ -50,9 +70,8 @@ const post = createSlice({
   initialState,
   reducers: {
     addPost: (state, action) => {
-      const imageUrl = action.payload.imageUrl;
-      const contents = action.payload.contents;
-      state.list.push({ imageUrl, contents });
+      const newPostList = [action.post, ...state.list];
+      return { ...state, list: newPostList };
     },
 
     getPost: (state, action) => {
