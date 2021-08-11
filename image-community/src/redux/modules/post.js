@@ -1,45 +1,26 @@
 //import
 import { createSlice } from '@reduxjs/toolkit';
 import instance from '../../shared/axios';
-import { getToken, setToken } from '../../shared/token';
 
 //REDUX
 import { imgActions } from './image';
 
-export const addPostDB = (post, imageUrl) => {
+export const addPostDB = (post) => {
   return function (dispatch, getState, { history }) {
     const imgFile = getState().image.file;
-    const token = getToken('token');
-    // instance.defaults.headers.common['Authorization'] = `${token}`;
     if (imgFile.length) {
       dispatch(
         imgActions.uploadImageDB(() => {
           const imageUrl = getState().image.imageUrl;
-          const contents = getState().post.contents;
           const postInfo = {
             contents: post,
             imageUrl: imageUrl,
           };
-          console.log(postInfo);
-
-          // { imageUrl : "이미지 주소",
-          //   contents : "내용",
-          // },
-
           instance
-            .post('/post/create', { ...postInfo })
+            .post('/post/create', postInfo)
             .then((res) => {
-              const userInfo = getState().user;
-
-              const newPost = {
-                ...postInfo,
-                userId: res.data.userId,
-                postId: res.data.postId,
-              };
-              console.log(newPost);
               dispatch(addPost(postInfo));
               dispatch(imgActions.setInitialState());
-              console.log(newPost);
             })
             .catch((err) => {
               console.log(err);
@@ -78,13 +59,10 @@ const post = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    addPost: (state, action) => {
-      // const newPostList = [action.post, ...state.list];
-      // return { ...state, list: newPostList };
+    addPost(state, action) {
       const imageUrl = action.payload.imageUrl;
       const contents = action.payload.contents;
-      console.log(imageUrl, contents);
-      return state.list.push({ imageUrl, contents });
+      state.list.push(imageUrl, contents);
     },
 
     getPost: (state, action) => {
