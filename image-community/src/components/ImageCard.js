@@ -2,12 +2,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { flexBox, flexHoz } from '../shared/style';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 //ELEMENTS
 import Image from '../elements/Image';
 import Grid from '../elements/Grid';
 import Text from '../elements/Text';
 import Button from '../elements/Button';
-const ImageCard = (props) => {
+import post, { getPostDB } from '../redux/modules/post';
+const ImageCard = (post) => {
+  console.log(post.username);
   return (
     <Grid
       bgColor="white"
@@ -33,7 +36,7 @@ const ImageCard = (props) => {
           }}
         >
           <Text color="black" fontWeight="bold">
-            정진우님
+            {post.username}
           </Text>
           <Button
             margin="1% 2px 0 2px"
@@ -58,13 +61,9 @@ const ImageCard = (props) => {
             삭제
           </Button>
         </Grid>
-        <Image
-          src={
-            'https://cdn.pixabay.com/photo/2021/08/02/20/35/architecture-6517841_960_720.jpg'
-          }
-        />
+        <Image src={post.imageUrl} />
         <Text color="black" fontWeight="bold" fontSize="30px" margin="60px 0">
-          건물사진
+          {post.contents}
         </Text>
       </Grid>
     </Grid>
