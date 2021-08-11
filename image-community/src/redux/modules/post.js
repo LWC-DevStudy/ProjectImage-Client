@@ -15,6 +15,7 @@ export const addPostDB = (post) => {
           const postInfo = {
             contents: post,
             imageUrl: imageUrl,
+            username: post.username,
           };
           instance
             .post('/post/create', postInfo)
@@ -35,7 +36,7 @@ export const addPostDB = (post) => {
 export const getPostDB = () => {
   return function (dispatch, getState, { history }) {
     instance
-      .get('/post/postId')
+      .get('/post')
       .then((res) => {
         console.log(res);
         let post_list = res.data;
@@ -62,7 +63,8 @@ const post = createSlice({
     addPost(state, action) {
       const imageUrl = action.payload.imageUrl;
       const contents = action.payload.contents;
-      state.list.push(imageUrl, contents);
+      const username = action.payload.username;
+      state.list.push(imageUrl, contents, username);
     },
 
     getPost: (state, action) => {
