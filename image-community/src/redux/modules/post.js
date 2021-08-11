@@ -6,7 +6,7 @@ import { getToken, setToken } from '../../shared/token';
 //REDUX
 import { imgActions } from './image';
 
-export const addPostDB = ({ contents, imgUrl }) => {
+export const addPostDB = (post, imageUrl) => {
   return function (dispatch, getState, { history }) {
     const imgFile = getState().image.file;
     const token = getToken('token');
@@ -14,13 +14,13 @@ export const addPostDB = ({ contents, imgUrl }) => {
     if (imgFile.length) {
       dispatch(
         imgActions.uploadImageDB(() => {
-          const imageUrl = getState().image.imgUrl;
+          const imageUrl = getState().image.imageUrl;
           const contents = getState().post.contents;
           const postInfo = {
-            contents: contents,
-            imageUrl: imgUrl,
+            contents: post,
+            imageUrl: imageUrl,
           };
-          console.log(getState().post);
+          console.log(postInfo);
 
           // { imageUrl : "이미지 주소",
           //   contents : "내용",
@@ -36,7 +36,8 @@ export const addPostDB = ({ contents, imgUrl }) => {
                 userId: res.data.userId,
                 postId: res.data.postId,
               };
-              dispatch(addPost(newPost));
+              console.log(newPost);
+              dispatch(addPost(postInfo));
               dispatch(imgActions.setInitialState());
               console.log(newPost);
             })
@@ -69,7 +70,7 @@ export const getPostDB = () => {
 // Delete와 Edit 추가 예정
 
 const initialState = {
-  list: ['aaaaaaaaaaaaaaa'],
+  list: [],
 };
 
 // 리덕스
@@ -80,10 +81,10 @@ const post = createSlice({
     addPost: (state, action) => {
       // const newPostList = [action.post, ...state.list];
       // return { ...state, list: newPostList };
-      const imgFile = action.payload.imgUrl;
+      const imageUrl = action.payload.imageUrl;
       const contents = action.payload.contents;
-      console.log(imgFile, contents);
-      return state.list.push({ imgFile, contents });
+      console.log(imageUrl, contents);
+      return state.list.push({ imageUrl, contents });
     },
 
     getPost: (state, action) => {
