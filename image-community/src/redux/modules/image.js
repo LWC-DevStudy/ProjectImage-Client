@@ -1,4 +1,3 @@
-import { createActions, handleActions } from 'redux-actions';
 import AWS from 'aws-sdk';
 
 AWS.config.update({
