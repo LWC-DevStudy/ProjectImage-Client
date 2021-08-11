@@ -10,7 +10,7 @@ export const addPostDB = (post, imageUrl) => {
   return function (dispatch, getState, { history }) {
     const imgFile = getState().image.file;
     const token = getToken('token');
-    instance.defaults.headers.common['Authorization'] = `${token}`;
+    // instance.defaults.headers.common['Authorization'] = `${token}`;
     if (imgFile.length) {
       dispatch(
         imgActions.uploadImageDB(() => {
