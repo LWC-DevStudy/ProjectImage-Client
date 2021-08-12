@@ -12,12 +12,8 @@ import ImageCard from '../components/ImageCard';
 import { getPostDB } from '../redux/modules/post';
 
 const Home = (props) => {
-  const { postId, _id } = props;
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
-  // const postId = useSelector((state) => state.post.postId);
-  // console.log(postId);
 
   React.useEffect(() => {
     dispatch(getPostDB());
