@@ -8,22 +8,14 @@ import { history } from '../redux/configStore';
 import { flexBox, flexHoz } from '../shared/style';
 
 //ELEMENTS
-import Image from '../elements/Image';
-import Grid from '../elements/Grid';
-import Text from '../elements/Text';
-import Button from '../elements/Button';
+import { Image, Grid, Text, Button } from '../elements/index';
 
 //REDUX
-import post, {
-  getPostDB,
-  editPostDB,
-  deletePostDB,
-} from '../redux/modules/post';
-import { imaActions } from '../redux/modules/image';
+import { editPostDB, deletePostDB } from '../redux/modules/post';
 import { LogInCheck } from '../redux/modules/user';
 
 const ImageCard = (post) => {
-  console.log(post);
+  // console.log(post);
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   // console.log(post.postId);

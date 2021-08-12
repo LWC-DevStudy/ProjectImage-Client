@@ -1,8 +1,8 @@
-//import
+// import
 import { createSlice } from '@reduxjs/toolkit';
 import instance from '../../shared/axios';
 
-//REDUX
+// redux
 import { imgActions } from './image';
 
 export const addPostDB = (post) => {
@@ -50,19 +50,23 @@ export const getPostDB = () => {
 };
 
 // 게시물 수정
-export const editPostDB = (username) => {
+export const editPostDB = (postId, contents) => {
   return function (dispatch, getState, { history }) {
-    if (!username) {
-      console.log('게시물 정보 없음');
-      return;
-    }
-
-    const _image = getState().image.imageUrl;
-
-    // const _post_idx = getState().post.list.findIndex((p) => p.id === username);
-    // const _post = getState().post.list[_post_idx];
-
-    // console.log(_post);
+    // if (!postId) {
+    //   console.log('게시물 정보 없음');
+    //   return;
+    // }
+    instance
+      .put(`/post/edit/${postId}`, { contents: contents })
+      .then((res) => {
+        console.log(res);
+        window.alert('게시글 수정 완료');
+        history.replace('/');
+      })
+      .catch((err) => {
+        console.log(postId);
+        console.error(err);
+      });
   };
 };
 
@@ -95,8 +99,7 @@ const post = createSlice({
       const imageUrl = action.payload.imageUrl;
       const contents = action.payload.contents;
       const username = action.payload.username;
-      const postId = action.payload.postId;
-      state.list.push(imageUrl, contents, username, postId);
+      state.list.push(imageUrl, contents, username);
     },
 
     getPost: (state, action) => {

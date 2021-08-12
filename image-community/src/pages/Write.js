@@ -1,12 +1,12 @@
 // library
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // redux
 
-import post, { addPostDB, editPostDB, getPostDB } from '../redux/modules/post';
-import image, { imgActions } from '../redux/modules/image';
+import { addPostDB } from '../redux/modules/post';
+import { imgActions } from '../redux/modules/image';
 
 // elements
 import { Grid, Button } from '../elements';

@@ -1,8 +1,9 @@
+// import
 import instance from '../../shared/axios';
 import { createSlice } from '@reduxjs/toolkit';
 
-// functions
-import { setToken, removeToken, getToken } from '../../shared/token';
+// token
+import { setToken, removeToken } from '../../shared/token';
 
 // 회원가입
 export const SignUpDB = ({ username, password, passwordCheck }) => {
