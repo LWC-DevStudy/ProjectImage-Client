@@ -1,16 +1,60 @@
 // LIBRARY
 import React from 'react';
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configStore';
+
+// STYLE
 import { flexBox, flexHoz } from '../shared/style';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+
 //ELEMENTS
 import Image from '../elements/Image';
 import Grid from '../elements/Grid';
 import Text from '../elements/Text';
 import Button from '../elements/Button';
-import post, { getPostDB } from '../redux/modules/post';
+
+//REDUX
+import post, {
+  getPostDB,
+  editPostDB,
+  deletePostDB,
+} from '../redux/modules/post';
+import { imaActions } from '../redux/modules/image';
+
 const ImageCard = (post) => {
-  console.log(post.username);
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+
+  const post_list = useSelector((state) => state.post.list);
+  // const postId = useSelector((state) => state.post.postId);
+  const postId = history.location.pathname.split('/')[2];
+
+  let idx = post_list.findIndex((p) => p.id === postId);
+  const _post = post_list[idx];
+  // console.log(_post);
+
+  // contents 수정
+  const [contents, setContents] = React.useState(_post.contents);
+  const input_contents = (e) => {
+    setContents(e.target.value);
+  };
+
+  const editBtn = () => {
+    dispatch(editPostDB(postId, contents));
+  };
+
+  // console.log(post.username);
+  // console.log(post.postId);
+
+  // 삭제 버튼
+  const post_name = post.username;
+  const my_post = useSelector((state) => state.user.user_info);
+  const vs = my_post === post_name;
+
+  const deleteBtn = () => {
+    dispatch(deletePostDB(post.id));
+  };
+
   return (
     <Grid
       bgColor="white"
@@ -38,31 +82,43 @@ const ImageCard = (post) => {
           <Text color="black" fontWeight="bold">
             {post.username}
           </Text>
-          <Button
-            margin="1% 2px 0 2px"
-            addstyle={() => {
-              return css`
-                height: 30px;
-                line-height: 1px;
-              `;
-            }}
-          >
-            수정
-          </Button>
-          <Button
-            margin="1% 0 0 0"
-            addstyle={() => {
-              return css`
-                height: 30px;
-                line-height: 1px;
-              `;
-            }}
-          >
-            삭제
-          </Button>
+          {vs && (
+            <React.Fragment>
+              <Button
+                clickEvent={editBtn}
+                margin="1% 2px 0 2px"
+                addstyle={() => {
+                  return css`
+                    height: 30px;
+                    line-height: 1px;
+                  `;
+                }}
+              >
+                수정
+              </Button>
+              <Button
+                clickEvent={deleteBtn}
+                margin="1% 0 0 0"
+                addstyle={() => {
+                  return css`
+                    height: 30px;
+                    line-height: 1px;
+                  `;
+                }}
+              >
+                삭제
+              </Button>
+            </React.Fragment>
+          )}
         </Grid>
         <Image src={post.imageUrl} />
-        <Text color="black" fontWeight="bold" fontSize="30px" margin="60px 0">
+        <Text
+          color="black"
+          fontWeight="bold"
+          fontSize="30px"
+          margin="60px 0"
+          onChange={input_contents}
+        >
           {post.contents}
         </Text>
       </Grid>

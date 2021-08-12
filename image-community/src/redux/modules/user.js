@@ -44,19 +44,10 @@ export const LogInDB = ({ username, password }) => {
 export const LogInCheck =
   () =>
   async (dispatch, getState, { history }) => {
-    const token = getToken('token');
-    if (token == null) {
-      return;
-    }
-    try {
-      const confirm = await instance.get('/login');
-      if (confirm.data.message !== 'success') {
-        window.alert(confirm.data.message);
-        return;
-      }
-      dispatch(setToken(confirm.data.user));
-    } catch (err) {
-      window.alert(err.message);
+    const token = localStorage.token;
+
+    if (token !== undefined) {
+      dispatch(logChek());
     }
   };
 
@@ -73,6 +64,8 @@ const user = createSlice({
   reducers: {
     // 로그인
     SetUser: (state, action) => {
+      state.user_info = action.payload.username;
+
       setToken('token', action.payload.token);
       state.is_login = true;
     },
@@ -82,8 +75,12 @@ const user = createSlice({
       state.is_login = false;
       window.alert('로그아웃 완료');
     },
-  }, 
+    // 로그인 체크
+    logChek: (state, action) => {
+      state.is_login = true;
+    },
+  },
 });
 
-export const { SetUser, LogOut } = user.actions;
+export const { SetUser, LogOut, logChek } = user.actions;
 export default user;

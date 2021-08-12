@@ -38,7 +38,7 @@ export const getPostDB = () => {
     instance
       .get('/post')
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         let post_list = res.data;
         dispatch(getPost(post_list));
       })
@@ -49,7 +49,40 @@ export const getPostDB = () => {
   };
 };
 
-// Delete와 Edit 추가 예정
+// 게시물 수정
+export const editPostDB = (username) => {
+  return function (dispatch, getState, { history }) {
+    if (!username) {
+      console.log('게시물 정보 없음');
+      return;
+    }
+
+    const _image = getState().image.imageUrl;
+
+    // const _post_idx = getState().post.list.findIndex((p) => p.id === username);
+    // const _post = getState().post.list[_post_idx];
+
+    // console.log(_post);
+  };
+};
+
+export const deletePostDB = (postId) => {
+  if (!postId) {
+    window.alert('삭제할 수 없는 게시물입니다.');
+    return;
+  }
+  return function (dispatch, getState, { history }) {
+    instance
+      .delete(`/post/delete/${postId}`)
+      .then((res) => {
+        dispatch(deletePost(postId));
+        window.alert('게시물 삭제 완료');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
 
 const initialState = {
   list: [],
@@ -70,8 +103,26 @@ const post = createSlice({
     getPost: (state, action) => {
       state.list = action.payload;
     },
+
+    editPost: (state, action) => {
+      const editList = state.list.map((post) => {
+        if (post.postId === action.postId) {
+          return action.post;
+        }
+        return post;
+      });
+      return { ...state, list: editList };
+    },
+
+    deletePost: (state, action) => {
+      const deleteList = state.list.filter(
+        (post) => post.posId !== action.postId
+      );
+
+      return { ...state, list: deleteList };
+    },
   },
 });
 
-export const { addPost, getPost } = post.actions;
+export const { addPost, getPost, editPost, deletePost } = post.actions;
 export default post;
