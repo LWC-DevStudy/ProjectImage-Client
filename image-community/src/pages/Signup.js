@@ -1,17 +1,14 @@
 // library
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // form
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 // reducer
 import { SignUpDB } from '../redux/modules/user';
-
-// style
-import { borderBox, flexBox, flexHoz } from '../shared/style';
 
 // elements
 import { Grid, Button, Input } from '../elements/index';
@@ -31,7 +28,7 @@ const Signup = (props) => {
       password: Yup.string()
         .min(4, '비밀번호는 4자리 이상이여야 합니다.')
         .required('비밀번호를 입력해주세요.'),
-        passwordCheck: Yup.string()
+      passwordCheck: Yup.string()
         .min(4, '비밀번호는 4자리 이상이여야 합니다.')
         .required('비밀번호를 재입력해주세요')
         .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
@@ -42,64 +39,62 @@ const Signup = (props) => {
   });
 
   return (
-  <>
-  <SignupPage>
-    <SignupBox>
-    <Grid>
-    <form name="signUpForm" onSubmit={formik.handleSubmit}>    
-    <Input
-      id="username"
-      name="username"
-      type="username" 
-      width="320px" 
-      margin="10px 0" 
-      label="아이디" 
-      placeholder="아이디를 입력해주세요."
-      value={formik.values.username}
-      _onChange={formik.handleChange} 
-    />
-    {formik.errors.username && formik.touched.username && (
-            <p>{formik.errors.username}</p>
-    )}
-    <Input
-      id="password"
-      name="password"
-      type="password" 
-      width="320px" 
-      margin="10px 0" 
-      label="비밀번호" 
-      placeholder="비밀번호를 입력해주세요."
-      value={formik.values.password}
-      _onChange={formik.handleChange} 
-    />
-    {formik.errors.password && formik.touched.password && (
-            <p>{formik.errors.password}</p>
-    )}
-    <Input
-      id="passwordCheck"
-      name="passwordCheck" 
-      type="password" 
-      width="320px" 
-      margin="10px 0" 
-      label="비밀번호 확인" 
-      placeholder="비밀번호를 한 번 더 입력해주세요."
-      value={formik.values.passwordCheck}
-      _onChange={formik.handleChange} 
-    />
-    {formik.errors.passwordCheck && formik.touched.passwordCheck && (
-            <p>{formik.errors.passwordCheck}</p>
-    )}
-    <Button 
-      margin="10px 120px"
-      type="submit"
-      value="회원가입"
-      >가입하기</Button>
-    </form>
-    </Grid>    
-    </SignupBox>
-  </SignupPage>
-  </>
-  )
+    <>
+      <SignupPage>
+        <SignupBox>
+          <Grid>
+            <form name="signUpForm" onSubmit={formik.handleSubmit}>
+              <Input
+                id="username"
+                name="username"
+                type="username"
+                width="320px"
+                margin="10px 0"
+                label="아이디"
+                placeholder="아이디를 입력해주세요."
+                value={formik.values.username}
+                _onChange={formik.handleChange}
+              />
+              {formik.errors.username && formik.touched.username && (
+                <p>{formik.errors.username}</p>
+              )}
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                width="320px"
+                margin="10px 0"
+                label="비밀번호"
+                placeholder="비밀번호를 입력해주세요."
+                value={formik.values.password}
+                _onChange={formik.handleChange}
+              />
+              {formik.errors.password && formik.touched.password && (
+                <p>{formik.errors.password}</p>
+              )}
+              <Input
+                id="passwordCheck"
+                name="passwordCheck"
+                type="password"
+                width="320px"
+                margin="10px 0"
+                label="비밀번호 확인"
+                placeholder="비밀번호를 한 번 더 입력해주세요."
+                value={formik.values.passwordCheck}
+                _onChange={formik.handleChange}
+              />
+              {formik.errors.passwordCheck && formik.touched.passwordCheck && (
+                <p>{formik.errors.passwordCheck}</p>
+              )}
+              <Button margin="10px 120px" type="submit" value="회원가입">
+                가입하기
+              </Button>
+            </form>
+          </Grid>
+        </SignupBox>
+      </SignupPage>
+    </>
+  );
 };
 
 const SignupBox = styled.div`
