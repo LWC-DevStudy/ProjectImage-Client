@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import styled, { css } from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { history } from '../redux/configStore';
 import { LogInDB } from '../redux/modules/user';
 
 // style

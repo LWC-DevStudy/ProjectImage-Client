@@ -3,6 +3,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { removeToken } from '../shared/token'
 
 // style
 import { borderBox, flexBox, flexHoz } from '../shared/style';
@@ -13,39 +14,46 @@ import { Grid, Button, Text } from '../elements/index';
 const Header = (props) => {
   const path = useLocation().pathname;
 
-  // const is_login = useSelector((state) => state.user.is_login);
+  const logOut = () => {
+    removeToken();
+    window.location.reload();
+  }
 
-  // if (is_login) {
-  //   return (
-  //     <HeaderStyle>
-  //       <Grid
-  //         width="100%"
-  //         addstyle={() => {
-  //           return css`
-  //             ${flexBox('space-between')}
-  //           `;
-  //         }}
-  //       >
-  //         <Grid>
-  //           <Text margin="0" fontSize="44px" fontWeight="bold">
-  //             Image
-  //           </Text>
-  //         </Grid>
+  const is_login = useSelector((state) => state.user.is_login);
 
-  //         <Grid
-  //           margin="0"
-  //           addstyle={() => {
-  //             return css`
-  //               ${flexBox('flex-end')}
-  //             `;
-  //           }}
-  //         >
-  //           <Button padding="12px">로그아웃</Button>
-  //         </Grid>
-  //       </Grid>
-  //     </HeaderStyle>
-  //   );
-  // }
+  if (is_login) {
+    return (
+      <HeaderStyle>
+        <Grid
+          width="100%"
+          addstyle={() => {
+            return css`
+              ${flexBox('space-between')}
+            `;
+          }}
+        >
+          <Grid>
+            <Link to="/">
+            <Text margin="0" fontSize="44px" fontWeight="bold">
+              Image
+            </Text>
+            </Link>
+          </Grid>
+
+          <Grid
+            margin="0"
+            addstyle={() => {
+              return css`
+                ${flexBox('flex-end')}
+              `;
+            }}
+          >
+            <Button clickEvent={logOut} padding="12px">로그아웃</Button>
+          </Grid>
+        </Grid>
+      </HeaderStyle>
+    );
+  }
 
   return (
     <HeaderStyle>

@@ -71,7 +71,7 @@ const user = createSlice({
       state.is_login = false;
       window.alert('로그아웃 완료');
     },
-  },
+  }, 
 });
 
 export const { SetUser, LogOut } = user.actions;
