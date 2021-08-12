@@ -56,7 +56,11 @@ const Header = (props) => {
               `;
             }}
           >
-            <Button clickEvent={logOut} padding="12px">
+            <Link to="/write">
+              <Button width="100%">작성하기</Button>
+            </Link>
+
+            <Button clickEvent={logOut} padding="12px" margin="0 0 0 5%">
               로그아웃
             </Button>
           </Grid>
