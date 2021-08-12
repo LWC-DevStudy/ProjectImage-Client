@@ -25,24 +25,21 @@ const ImageCard = (post) => {
 
   const post_list = useSelector((state) => state.post.list);
   // const postId = useSelector((state) => state.post.postId);
-  const postId = history.location.pathname.split('/')[2];
+  const postId = post.postId;
 
   let idx = post_list.findIndex((p) => p.id === postId);
   const _post = post_list[idx];
   // console.log(_post);
 
   // contents 수정
-  const [contents, setContents] = React.useState(_post.contents);
+  const [contents, setContents] = React.useState(post.contents);
   const input_contents = (e) => {
     setContents(e.target.value);
   };
 
   const editBtn = () => {
-    dispatch(editPostDB(postId, contents));
+    dispatch(editPostDB(post.postId, post.contents));
   };
-
-  // console.log(post.username);
-  // console.log(post.postId);
 
   // 삭제 버튼
   const post_name = post.username;
@@ -50,7 +47,7 @@ const ImageCard = (post) => {
   const vs = my_post === post_name;
 
   const deleteBtn = () => {
-    dispatch(deletePostDB(post.id));
+    dispatch(deletePostDB(post.postId));
   };
 
   if (is_login) {
@@ -152,34 +149,31 @@ const ImageCard = (post) => {
           <Text color="black" fontWeight="bold">
             {post.username}
           </Text>
-          {/* {vs && (
-            <React.Fragment>
-              <Button
-                clickEvent={editBtn}
-                margin="1% 2px 0 2px"
-                addstyle={() => {
-                  return css`
-                    height: 30px;
-                    line-height: 1px;
-                  `;
-                }}
-              >
-                수정
-              </Button>
-              <Button
-                clickEvent={deleteBtn}
-                margin="1% 0 0 0"
-                addstyle={() => {
-                  return css`
-                    height: 30px;
-                    line-height: 1px;
-                  `;
-                }}
-              >
-                삭제
-              </Button>
-            </React.Fragment>
-          )} */}
+
+          <Button
+            clickEvent={editBtn}
+            margin="1% 2px 0 2px"
+            addstyle={() => {
+              return css`
+                height: 30px;
+                line-height: 1px;
+              `;
+            }}
+          >
+            수정
+          </Button>
+          <Button
+            clickEvent={deleteBtn}
+            margin="1% 0 0 0"
+            addstyle={() => {
+              return css`
+                height: 30px;
+                line-height: 1px;
+              `;
+            }}
+          >
+            삭제
+          </Button>
         </Grid>
         <Image src={post.imageUrl} />
         <Text
