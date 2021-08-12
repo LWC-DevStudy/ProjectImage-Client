@@ -67,10 +67,6 @@ export const editPostDB = (username) => {
 };
 
 export const deletePostDB = (postId) => {
-  if (!postId) {
-    window.alert('삭제할 수 없는 게시물입니다.');
-    return;
-  }
   return function (dispatch, getState, { history }) {
     instance
       .delete(`/post/delete/${postId}`)
@@ -79,6 +75,7 @@ export const deletePostDB = (postId) => {
         window.alert('게시물 삭제 완료');
       })
       .catch((err) => {
+        console.log(postId);
         console.error(err);
       });
   };
@@ -116,7 +113,7 @@ const post = createSlice({
 
     deletePost: (state, action) => {
       const deleteList = state.list.filter(
-        (post) => post.posId !== action.postId
+        (post) => post.postId !== action.postId
       );
 
       return { ...state, list: deleteList };
