@@ -50,7 +50,7 @@ const ImageCard = (post) => {
   const vs = my_post === post_name;
 
   const deleteBtn = () => {
-    dispatch(deletePostDB(post.id));
+    dispatch(deletePostDB(postId));
   };
 
   if (is_login) {
