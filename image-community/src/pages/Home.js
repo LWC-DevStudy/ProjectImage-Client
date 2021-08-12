@@ -1,6 +1,6 @@
 // LIBRARY
 import React from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // ELEMENTS
 import Grid from '../elements/Grid';
@@ -9,9 +9,10 @@ import Grid from '../elements/Grid';
 import ImageCard from '../components/ImageCard';
 
 // REDUX
-import post, { getPostDB, editPostDB } from '../redux/modules/post';
+import { getPostDB } from '../redux/modules/post';
 
 const Home = (props) => {
+  const { postId, _id } = props;
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
   // console.log(postList);

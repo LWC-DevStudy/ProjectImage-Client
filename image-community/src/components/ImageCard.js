@@ -20,10 +20,16 @@ import post, {
   deletePostDB,
 } from '../redux/modules/post';
 import { imaActions } from '../redux/modules/image';
+import { LogInCheck } from '../redux/modules/user';
 
 const ImageCard = (post) => {
+  console.log(post);
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  // console.log(post.postId);
+  React.useEffect(() => {
+    dispatch(LogInCheck());
+  });
 
   const post_list = useSelector((state) => state.post.list);
   // const postId = useSelector((state) => state.post.postId);
@@ -55,6 +61,78 @@ const ImageCard = (post) => {
     dispatch(deletePostDB(post.id));
   };
 
+  if (is_login) {
+    return (
+      <Grid
+        bgColor="white"
+        width="100%"
+        color="navy"
+        margin="auto"
+        padding="16px"
+        border="1px solid black"
+        addstyle={() => {
+          return css`
+            ${flexBox('column', 'column')}
+          `;
+        }}
+      >
+        <Grid width="1200px" margin="10% 8px 0px 0px">
+          <Grid
+            width="100%"
+            margin="0 0 8px 0"
+            addstyle={() => {
+              return css`
+                ${flexHoz('flex-end')}
+              `;
+            }}
+          >
+            <Text color="black" fontWeight="bold">
+              {post.username}
+            </Text>
+            {vs && (
+              <React.Fragment>
+                <Button
+                  clickEvent={editBtn}
+                  margin="1% 2px 0 2px"
+                  addstyle={() => {
+                    return css`
+                      height: 30px;
+                      line-height: 1px;
+                    `;
+                  }}
+                >
+                  수정
+                </Button>
+                <Button
+                  clickEvent={deleteBtn}
+                  margin="1% 0 0 0"
+                  addstyle={() => {
+                    return css`
+                      height: 30px;
+                      line-height: 1px;
+                    `;
+                  }}
+                >
+                  삭제
+                </Button>
+              </React.Fragment>
+            )}
+          </Grid>
+          <Image src={post.imageUrl} />
+          <Text
+            color="black"
+            fontWeight="bold"
+            fontSize="30px"
+            margin="60px 0"
+            onChange={input_contents}
+          >
+            {post.contents}
+          </Text>
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
     <Grid
       bgColor="white"
@@ -82,7 +160,7 @@ const ImageCard = (post) => {
           <Text color="black" fontWeight="bold">
             {post.username}
           </Text>
-          {vs && (
+          {/* {vs && (
             <React.Fragment>
               <Button
                 clickEvent={editBtn}
@@ -109,7 +187,7 @@ const ImageCard = (post) => {
                 삭제
               </Button>
             </React.Fragment>
-          )}
+          )} */}
         </Grid>
         <Image src={post.imageUrl} />
         <Text

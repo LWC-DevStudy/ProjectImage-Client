@@ -67,18 +67,16 @@ export const editPostDB = (username) => {
 };
 
 export const deletePostDB = (postId) => {
-  if (!postId) {
-    window.alert('삭제할 수 없는 게시물입니다.');
-    return;
-  }
   return function (dispatch, getState, { history }) {
     instance
       .delete(`/post/delete/${postId}`)
       .then((res) => {
         dispatch(deletePost(postId));
+
         window.alert('게시물 삭제 완료');
       })
       .catch((err) => {
+        console.log(postId);
         console.error(err);
       });
   };
@@ -97,7 +95,8 @@ const post = createSlice({
       const imageUrl = action.payload.imageUrl;
       const contents = action.payload.contents;
       const username = action.payload.username;
-      state.list.push(imageUrl, contents, username);
+      const postId = action.payload.postId;
+      state.list.push(imageUrl, contents, username, postId);
     },
 
     getPost: (state, action) => {
