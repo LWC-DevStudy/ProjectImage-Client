@@ -1,18 +1,26 @@
 // library
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configStore';
 
 // redux
-
-import { addPostDB } from '../redux/modules/post';
+import { addPostDB, editPostDB } from '../redux/modules/post';
 import { imgActions } from '../redux/modules/image';
+import post from '../redux/modules/post';
+import { LogInCheck } from '../redux/modules/user';
 
 // elements
 import { Grid, Button } from '../elements';
 
 const Write = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
+
+  React.useEffect(() => {
+    dispatch(LogInCheck());
+  });
 
   //input 값
   const [contents, setContent] = React.useState();
@@ -24,6 +32,12 @@ const Write = (props) => {
   // 작성 btn
   const writeBtn = () => {
     dispatch(addPostDB(contents));
+  };
+
+  // 수정 버튼
+  const editBtn = () => {
+    history.push('/write');
+    dispatch(editPostDB(post.postId, post.contents));
   };
 
   // s3
@@ -63,8 +77,8 @@ const Write = (props) => {
       </Grid>
 
       <Grid width="90px" margin="0 auto">
-        <Button width="90px" clickEvent={writeBtn}>
-          작성하기
+        <Button width="90px" clickEvent={is_login ? writeBtn : editBtn}>
+          {is_login ? '작성하기' : '수정하기'}
         </Button>
       </Grid>
     </Grid>
