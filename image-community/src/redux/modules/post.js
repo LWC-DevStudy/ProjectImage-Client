@@ -114,7 +114,7 @@ const post = createSlice({
 
     deletePost: (state, action) => {
       const deleteList = state.list.filter(
-        (post) => post.posId !== action.postId
+        (post) => post.postId !== action.postId
       );
 
       return { ...state, list: deleteList };
