@@ -2,7 +2,7 @@ import instance from '../../shared/axios';
 import { createSlice } from '@reduxjs/toolkit';
 
 // functions
-import { setToken, removeToken } from '../../shared/token';
+import { setToken, removeToken, getToken } from '../../shared/token';
 
 // 회원가입
 export const SignUpDB = ({ username, password, passwordCheck }) => {
@@ -41,13 +41,24 @@ export const LogInDB = ({ username, password }) => {
 };
 
 // 로그인 상태 확인
-export const LogInCheck = (token) => {
-  return function (dispatch) {
-    if (token) {
-      dispatch(LogInDB(token));
+export const LogInCheck =
+  () =>
+  async (dispatch, getState, { history }) => {
+    const token = getToken('token');
+    if (token == null) {
+      return;
+    }
+    try {
+      const confirm = await instance.get('/login');
+      if (confirm.data.message !== 'success') {
+        window.alert(confirm.data.message);
+        return;
+      }
+      dispatch(setToken(confirm.data.user));
+    } catch (err) {
+      window.alert(err.message);
     }
   };
-};
 
 // initialState
 const initialState = {
