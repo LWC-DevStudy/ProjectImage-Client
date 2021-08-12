@@ -3,23 +3,31 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { removeToken } from '../shared/token'
+import { removeToken } from '../shared/token';
+import { useDispatch } from 'react-redux';
 
 // style
 import { borderBox, flexBox, flexHoz } from '../shared/style';
 
 // elements
 import { Grid, Button, Text } from '../elements/index';
+import { LogInCheck } from '../redux/modules/user';
 
 const Header = (props) => {
   const path = useLocation().pathname;
-
+  const dispatch = useDispatch();
   const logOut = () => {
     removeToken();
     window.location.reload();
-  }
+  };
 
   const is_login = useSelector((state) => state.user.is_login);
+
+  console.log(is_login);
+
+  React.useEffect(() => {
+    dispatch(LogInCheck());
+  });
 
   if (is_login) {
     return (
@@ -34,9 +42,9 @@ const Header = (props) => {
         >
           <Grid>
             <Link to="/">
-            <Text margin="0" fontSize="44px" fontWeight="bold">
-              Image
-            </Text>
+              <Text margin="0" fontSize="44px" fontWeight="bold">
+                Image
+              </Text>
             </Link>
           </Grid>
 
@@ -48,7 +56,9 @@ const Header = (props) => {
               `;
             }}
           >
-            <Button clickEvent={logOut} padding="12px">로그아웃</Button>
+            <Button clickEvent={logOut} padding="12px">
+              로그아웃
+            </Button>
           </Grid>
         </Grid>
       </HeaderStyle>
