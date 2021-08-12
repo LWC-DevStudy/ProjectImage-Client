@@ -81,11 +81,11 @@ const Header = (props) => {
             `;
           }}
         >
-          <Link to={path === '/' ? '/login' : 'write'}>
-            <Button width="100%">{path === '/' ? '로그인' : '작성하기'}</Button>
+          <Link to={path === '/' ? '/login' : '/'}>
+            <Button width="100%">{path === '/' ? '로그인' : '취소하기'}</Button>
           </Link>
-          <Link to={path === '/' ? '/signup' : '/'}>
-            <Button>{path === '/' ? '회원가입' : '로그아웃'}</Button>
+          <Link to={path === '/' ? '/signup' : '/signup'}>
+            <Button>{path === '/' ? '회원가입' : '회원가입'}</Button>
           </Link>
         </Grid>
       </Grid>
