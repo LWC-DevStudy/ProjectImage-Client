@@ -76,7 +76,6 @@ export const deletePostDB = (postId) => {
         window.alert('게시물 삭제 완료');
       })
       .catch((err) => {
-        console.log(postId);
         console.error(err);
       });
   };

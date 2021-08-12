@@ -3,6 +3,7 @@ import React from 'react';
 import { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configStore';
+import { Link } from 'react-router-dom';
 
 // STYLE
 import { flexBox, flexHoz } from '../shared/style';
@@ -23,23 +24,15 @@ const ImageCard = (post) => {
     dispatch(LogInCheck());
   });
 
-  const post_list = useSelector((state) => state.post.list);
-  // const postId = useSelector((state) => state.post.postId);
-  const postId = post.postId;
+  // const post_list = useSelector((state) => state.post.list);
+  // // const postId = useSelector((state) => state.post.postId);
+  // const postId = post.postId;
 
-  let idx = post_list.findIndex((p) => p.id === postId);
-  const _post = post_list[idx];
-  // console.log(_post);
+  // let idx = post_list.findIndex((p) => p.id === postId);
+  // const _post = post_list[idx];
+  // // console.log(_post);
 
-  // contents 수정
-  const [contents, setContents] = React.useState(post.contents);
-  const input_contents = (e) => {
-    setContents(e.target.value);
-  };
-
-  const editBtn = () => {
-    dispatch(editPostDB(post.postId, post.contents));
-  };
+  // // contents 수정
 
   // 삭제 버튼
   const post_name = post.username;
@@ -56,7 +49,7 @@ const ImageCard = (post) => {
         bgColor="white"
         width="100%"
         color="navy"
-        margin="auto"
+        margin="5% 0 0 0"
         padding="16px"
         border="1px solid black"
         addstyle={() => {
@@ -80,18 +73,19 @@ const ImageCard = (post) => {
             </Text>
             {vs && (
               <React.Fragment>
-                <Button
-                  clickEvent={editBtn}
-                  margin="1% 2px 0 2px"
-                  addstyle={() => {
-                    return css`
-                      height: 30px;
-                      line-height: 1px;
-                    `;
-                  }}
-                >
-                  수정
-                </Button>
+                <Link to="/write">
+                  <Button
+                    margin="1% 2px 0 2px"
+                    addstyle={() => {
+                      return css`
+                        height: 30px;
+                        line-height: 1px;
+                      `;
+                    }}
+                  >
+                    수정
+                  </Button>
+                </Link>
                 <Button
                   clickEvent={deleteBtn}
                   margin="1% 0 0 0"
@@ -108,13 +102,7 @@ const ImageCard = (post) => {
             )}
           </Grid>
           <Image src={post.imageUrl} />
-          <Text
-            color="black"
-            fontWeight="bold"
-            fontSize="30px"
-            margin="60px 0"
-            onChange={input_contents}
-          >
+          <Text color="black" fontWeight="bold" fontSize="30px" margin="60px 0">
             {post.contents}
           </Text>
         </Grid>
@@ -151,7 +139,6 @@ const ImageCard = (post) => {
           </Text>
 
           <Button
-            clickEvent={editBtn}
             margin="1% 2px 0 2px"
             addstyle={() => {
               return css`
@@ -176,13 +163,7 @@ const ImageCard = (post) => {
           </Button>
         </Grid>
         <Image src={post.imageUrl} />
-        <Text
-          color="black"
-          fontWeight="bold"
-          fontSize="30px"
-          margin="60px 0"
-          onChange={input_contents}
-        >
+        <Text color="black" fontWeight="bold" fontSize="30px" margin="60px 0">
           {post.contents}
         </Text>
       </Grid>
