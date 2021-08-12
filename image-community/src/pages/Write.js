@@ -1,12 +1,11 @@
 // library
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // redux
 
-
-import post, { addPostDB } from '../redux/modules/post';
+import post, { addPostDB, editPostDB, getPostDB } from '../redux/modules/post';
 import image, { imgActions } from '../redux/modules/image';
 
 // elements
@@ -33,6 +32,14 @@ const Write = (props) => {
     dispatch(imgActions.setInitialState());
     dispatch(imgActions.setFile([file]));
   };
+
+  // 수정
+  // const postId = useSelector((state) => state.post);
+  // console.log(postId);
+
+  // React.useEffect(() => {
+  //   dispatch(getPostDB());
+  // }, []);
 
   return (
     <Grid bgColor="navy" width="100%" height="100vh">

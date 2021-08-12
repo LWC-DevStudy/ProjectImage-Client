@@ -73,6 +73,8 @@ const user = createSlice({
   reducers: {
     // 로그인
     SetUser: (state, action) => {
+      state.user_info = action.payload.username;
+
       setToken('token', action.payload.token);
       state.is_login = true;
     },
